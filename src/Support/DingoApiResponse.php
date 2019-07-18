@@ -1,16 +1,23 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/dingo-api-helper.
+ *
+ * (c) Godruoyi <godruoyi@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\DingoApiHelper\Support;
 
 use Closure;
+use Dingo\Api\Http\Response as DingoResponse;
+use Dingo\Api\Transformer\Factory as TransformerFactory;
 use ErrorException;
-use Illuminate\Support\Str;
+use Illuminate\Contracts\Pagination\Paginator;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
-use Dingo\Api\Http\Response as DingoResponse;
-use Illuminate\Contracts\Pagination\Paginator;
-use Dingo\Api\Transformer\Factory as TransformerFactory;
-use Symfony\Component\HttpKernel\Exception\HttpException;
+use Illuminate\Support\Str;
 
 class DingoApiResponse
 {
@@ -22,7 +29,7 @@ class DingoApiResponse
     protected $transformer;
 
     /**
-     * The Transformer converter
+     * The Transformer converter.
      *
      * @var \Godruoyi\DingoApiHelper\Support\Converter
      */
@@ -32,8 +39,6 @@ class DingoApiResponse
      * Create a new DingoResponse factory instance.
      *
      * @param \Dingo\Api\Transformer\Factory $transformer
-     *
-     * @return void
      */
     public function __construct(TransformerFactory $transformer, Converter $transformerConverter)
     {
@@ -55,7 +60,7 @@ class DingoApiResponse
     }
 
     /**
-     * disable dingo api pre-load
+     * disable dingo api pre-load.
      *
      * @return mixed
      */
@@ -68,33 +73,33 @@ class DingoApiResponse
     }
 
     /**
-     * Response with 200 response
+     * Response with 200 response.
      *
-     * @param  mixed $content
+     * @param mixed $content
      *
      * @return \Dingo\Api\Http\Response
      */
     public function success($content): DingoResponse
     {
-        return (new DingoResponse($content));
+        return new DingoResponse($content);
     }
 
     /**
-     * Response with 200 response
+     * Response with 200 response.
      *
-     * @param  mixed $content
+     * @param mixed $content
      *
      * @return \Dingo\Api\Http\Response
      */
     public function array($content): DingoResponse
     {
-        return (new DingoResponse($content));
+        return new DingoResponse($content);
     }
 
     /**
      * Respond with an accepted response.
      *
-     * @param mixed       $content
+     * @param mixed $content
      *
      * @return \Dingo\Api\Http\Response
      */
@@ -161,7 +166,7 @@ class DingoApiResponse
     public function item($item, $transformer = null, $parameters = [], Closure $after = null)
     {
         $transformer = $this->transformerConverter->convert($item, $transformer);
-        $class       = get_class($item);
+        $class = get_class($item);
 
         if ($parameters instanceof \Closure) {
             $after = $parameters;
@@ -215,8 +220,8 @@ class DingoApiResponse
         $errorCode = is_null($errorCode) ? ($statusCode * 100) : $errorCode;
 
         return response()->json([
-            'error_code'  => $errorCode,
-            'message'     => $message,
+            'error_code' => $errorCode,
+            'message' => $message,
             // 'status_code' => $statusCode,
         ], $statusCode);
     }
@@ -320,10 +325,10 @@ class DingoApiResponse
         if (Str::startsWith($method, 'with')) {
             return call_user_func_array([$this, Str::camel(substr($method, 4))], $parameters);
 
-            // Because PHP won't let us name the method "array" we'll simply watch for it
+        // Because PHP won't let us name the method "array" we'll simply watch for it
             // in here and return the new binding. Gross. This is now DEPRECATED and
             // should not be used. Just return an array or a new DingoResponse instance.
-        } elseif ($method == 'array') {
+        } elseif ('array' == $method) {
             return new DingoResponse($parameters[0]);
         }
 

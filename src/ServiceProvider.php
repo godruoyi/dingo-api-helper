@@ -1,5 +1,13 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/dingo-api-helper.
+ *
+ * (c) Godruoyi <godruoyi@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\DingoApiHelper;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
@@ -8,8 +16,6 @@ class ServiceProvider extends BaseServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -21,8 +27,6 @@ class ServiceProvider extends BaseServiceProvider
 
     /**
      * Register the response factory.
-     *
-     * @return void
      */
     protected function reRegisterResponseFactory()
     {
@@ -32,9 +36,7 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Custom Dingo Api Exception Responses
-     *
-     * @return void
+     * Custom Dingo Api Exception Responses.
      */
     protected function customDingoApiExceptionResponses()
     {
@@ -52,18 +54,16 @@ class ServiceProvider extends BaseServiceProvider
     }
 
     /**
-     * Reset transformer transfomer Serializer
-     *
-     * @return void
+     * Reset transformer transfomer Serializer.
      */
     protected function reSetTransformerSerializer()
     {
         $this->app['Dingo\Api\Transformer\Factory']->setAdapter(function ($app) {
-            $fractal = new \League\Fractal\Manager;
+            $fractal = new \League\Fractal\Manager();
 
             // $fractal->setSerializer(new \League\Fractal\Serializer\JsonApiSerializer);
             // $fractal->setSerializer(new \League\Fractal\Serializer\ArraySerializer);
-            $fractal->setSerializer(new \Godruoyi\DingoApiHelper\Support\ArraySerializer);
+            $fractal->setSerializer(new \Godruoyi\DingoApiHelper\Support\ArraySerializer());
             // $fractal->setSerializer(new \League\Fractal\Serializer\DataArraySerializer);
 
             return new \Dingo\Api\Transformer\Adapter\Fractal($fractal);

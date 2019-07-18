@@ -286,6 +286,6 @@ class ExampleController extends Controller
 
 ## 参考
 
-https://github.com/godruoyi/restful-api-specification
-https://github.com/yikeio/yike
-https://learnku.com/docs/dingo-api/2.0.0/
+* https://github.com/godruoyi/restful-api-specification
+* https://github.com/yikeio/yike
+* https://learnku.com/docs/dingo-api/2.0.0/

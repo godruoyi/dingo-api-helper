@@ -1,26 +1,34 @@
 <?php
 
+/*
+ * This file is part of the godruoyi/dingo-api-helper.
+ *
+ * (c) Godruoyi <godruoyi@gmail.com>
+ *
+ * This source file is subject to the MIT license that is bundled.
+ */
+
 namespace Godruoyi\DingoApiHelper\Support;
 
 use Exception;
-use League\Fractal\TransformerAbstract;
-use Illuminate\Database\Eloquent\Collection;
 use Godruoyi\DingoApiHelper\EmptyTransformer;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Collection;
+use League\Fractal\TransformerAbstract;
 
 class Converter
 {
     /**
-     * Convert data to transformer instance
+     * Convert data to transformer instance.
      *
-     * @param  mixed $data
-     * @param  mixed $transformer
+     * @param mixed $data
+     * @param mixed $transformer
      *
      * @return \League\Fractal\TransformerAbstract
      */
     public function convert($data, $transformer = null): TransformerAbstract
     {
-        if (! is_null($transformer) && $transformer instanceof TransformerAbstract) {
+        if (!is_null($transformer) && $transformer instanceof TransformerAbstract) {
             return $transformer;
         }
 
@@ -28,20 +36,20 @@ class Converter
             return new EmptyTransformer();
         }
 
-        $classname     = $this->getClassnameFrom($data);
+        $classname = $this->getClassnameFrom($data);
         $classBasename = class_basename($classname);
 
-        if (! class_exists($transformer = "App\\Transformers\\{$classBasename}Transformer")) {
+        if (!class_exists($transformer = "App\\Transformers\\{$classBasename}Transformer")) {
             throw new Exception("No transformer for {$classname}");
         }
 
-        return new $transformer;
+        return new $transformer();
     }
 
     /**
      * Get the class name from the given object.
      *
-     * @param  object $object
+     * @param object $object
      *
      * @return string
      */
@@ -53,6 +61,7 @@ class Converter
         if (!is_string($object) && !is_object($object)) {
             throw new Exception("No transformer of \"{$object}\"found.");
         }
+
         return get_class($object);
     }
 }
