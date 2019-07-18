@@ -1,11 +1,10 @@
 <h1 align="center"> Dingo api response helper. </h1>
 
 <p align="center">
-    <a href="https://github.styleci.io/repos/191917595"><img src="https://github.styleci.io/repos/191917595/shield?branch=master" alt="StyleCI"></a>
-    <a href="https://scrutinizer-ci.com/g/godruoyi/laravel-tencent007-captcha/?branch=master"><img src="https://scrutinizer-ci.com/g/godruoyi/laravel-tencent007-captcha/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
-    <a href="https://packagist.org/packages/godruoyi/laravel-tencent007-captcha"><img src="https://poser.pugx.org/godruoyi/laravel-tencent007-captcha/v/stable" alt="tencent captcha"></a>
-    <a href="https://packagist.org/packages/godruoyi/laravel-tencent007-captcha"><img src="https://poser.pugx.org/godruoyi/laravel-tencent007-captcha/downloads" alt="tencent captcha"></a>
-    <a href="https://packagist.org/packages/godruoyi/laravel-tencent007-captcha"><img src="https://poser.pugx.org/godruoyi/laravel-tencent007-captcha/license" alt="tencent captcha"></a>
+    <a href="https://github.styleci.io/repos/197521808"><img src="https://github.styleci.io/repos/197521808/shield?branch=master" alt="StyleCI"></a>
+    <a href="https://packagist.org/packages/godruoyi/dingo-api-helper"><img src="https://poser.pugx.org/godruoyi/dingo-api-helper/v/stable" alt="dingo-api-helper"></a>
+    <a href="https://packagist.org/packages/godruoyi/dingo-api-helper"><img src="https://poser.pugx.org/godruoyi/dingo-api-helper/downloads" alt="dingo-api-helper"></a>
+    <a href="https://packagist.org/packages/godruoyi/dingo-api-helper"><img src="https://poser.pugx.org/godruoyi/dingo-api-helper/license" alt="dingo-api-helper"></a>
 </p>
 
 ## 说明
