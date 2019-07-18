@@ -328,7 +328,7 @@ class DingoApiResponse
         // Because PHP won't let us name the method "array" we'll simply watch for it
             // in here and return the new binding. Gross. This is now DEPRECATED and
             // should not be used. Just return an array or a new DingoResponse instance.
-        } elseif ('array' == $method) {
+        } elseif ('array' === $method) {
             return new DingoResponse($parameters[0]);
         }
 
