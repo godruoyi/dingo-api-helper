@@ -38,23 +38,36 @@ $app['Dingo\Api\Transformer\Factory']->setAdapter(function ($app) {
 
 > 在最外层包含一层无用 data 
 
-2、Exception 的转换
+2、Transformer 的指定
 
-当 Laravel 抛出一个 Model not found 等异常时，默认情况 dingo/api 会返回如下格式的响应：
+默认情况下在 controller 在中通过 dingo response 返回数据时，必须指定 Transformer 的位置；
+
+```php
+class ExampleController extends BaseController
+{
+    public function __invoke()
+    {
+        $users = User::all();
+
+        return $this->response->collection($users, new UserTransformer);//每次都要手动指定
+    }
+}
+```
+
+若不指定 Transfoemr 的位置，你将会得到一个参数不匹配的错误。
 
 ```json
 {
-    "message": "No transformer of ""found.",
+    "message": "Too few arguments to function Dingo\\Api\\Http\\Response\\Factory::collection(), 1 passed in Controller.php on line 16 and at least 2 expected",
     "status_code": 500
 }
 ```
 
-该响应的 http status 为 500，这显然不是我们想要的 404 响应。这时你必须的手动转换异常。
+这显然不是我们想要的结果。我们希望框架能自动处理 Transformer 的位置，也能够手动指定。
 
 ```php
-app('Dingo\Api\Exception\Handler')->register(function (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
-    throw new \Symfony\Component\HttpKernel\Exception\NotFoundHttpException('404 Not Found!');
-});
+return $this->response->item($user);
+return $this->response->item($user, new \Other\UserDetailTransformer);
 ```
 
 3、无法自定义错误码
