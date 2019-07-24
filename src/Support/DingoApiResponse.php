@@ -217,7 +217,7 @@ class DingoApiResponse
      */
     public function error($message, $statusCode, int $errorCode = null): JsonResponse
     {
-        $errorCode = is_null($errorCode) ? ($statusCode * 100) : $errorCode;
+        $errorCode = is_null($errorCode) ? ($statusCode * 1000) : $errorCode;
 
         return response()->json([
             'error_code' => $errorCode,
